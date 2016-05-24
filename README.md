@@ -29,11 +29,11 @@ Example: for your plots, graphs, results etc. - delete if not used
 
 ```
 
-![Picture1](/data/david.jpg)
+![Picture1](./data/david.jpg)
 
-![Picture2](/data/reethesh.jpg)
+![Picture2](./data/reethesh.jpg)
 
-![Picture3](/data/brian.jpg)
+![Picture3](./data/brian.jpg)
 
 
 ```r
