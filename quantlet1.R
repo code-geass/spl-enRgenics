@@ -79,9 +79,9 @@ firstline = check4data(file) - 1
 lastline = check4data(file, reverse = TRUE) - firstline
 # [1] 16014
 
-alldata = read.csv(file, header = FALSE, skip = firstline, nrows = lastline, stringsAsFactors = FALSE)
+rawdata = read.csv(file, header = FALSE, skip = firstline, nrows = lastline, stringsAsFactors = FALSE)
 headers = extractheaderinfo(file,firstline)
-alldata = c2num(alldata, headers)
-reformeddata = splitdata(alldata, headers)
+data = c2num(rawdata, headers)
+reformeddata = splitdata(data, headers)
                                                                      
 head(reformeddata)
