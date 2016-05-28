@@ -2,7 +2,9 @@
 # download data from https://www.eia.gov/electricity/data/eia826/
 options(repos= c("http://cloud.r-project.org/"))
 
+#install.packages(zoo)
 library(zoo)
+#install.packages(reshape2)
 library(reshape2)
 
 check4data <- function(file, reverse = FALSE) {
