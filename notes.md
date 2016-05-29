@@ -21,3 +21,4 @@ jupyter notebook --no-browser --port $PORT --ip $IP
 
 [federal regions](https://en.wikipedia.org/wiki/List_of_regions_of_the_United_States)
 [us heatmap in R](http://stackoverflow.com/questions/24441775/how-do-you-create-a-us-states-heatmap-based-on-some-values)
+[script to install on c9](http://stackoverflow.com/questions/31598883/installing-python-module-pandas-in-cloud9)
