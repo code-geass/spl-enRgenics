@@ -14,6 +14,7 @@ ts_year_by_state = dcast(totals[which(totals$Cat == "TOTAL"),], Year ~ State, va
 corr_states = cor(ts_year_by_state[, c(-1,-ncol(ts_year_by_state))])
 means_by_state = colMeans(ts_year_by_state[,-1])
 
+corr_states
 
 
 heatmap(corr_states, Rowv=NA, Colv=NA, col = cm.colors(256), margins=c(5,10))
@@ -34,7 +35,6 @@ library(sp)
 permit = gpclibPermit()
 means_df = data.frame(means_by_state)
 dat = means_df
-
 dat$states <- tolower(state.name[match(rownames(dat),  state.abb)])
 mapUSA <- map('state',  fill = TRUE,  plot = FALSE)
 nms <- sapply(strsplit(mapUSA$names,  ':'),  function(x){x[1]})

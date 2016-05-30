@@ -12,8 +12,10 @@ check4data = function(file, reverse = FALSE) {
     numlines = 100
     s = readLines(file)
     if(reverse == FALSE) {
+        # from beginning of file
         checkLines = c(1:numlines)
     } else {
+        # from end of file
         tLines = length(s)
         checkLines = rev(c((tLines - numlines):tLines))
     }
@@ -68,6 +70,23 @@ c2num = function(data, headers) {
     return(data)
 }
 
+
+splitdata = function(data, headers, catlen = 4) {
+    # http://www.statmethods.net/management/reshape.html
+    els = sapply(headers, function(x) {length(x)})
+    chidxs = which(els <= 1)
+    uhidxs = setdiff(c(1:length(els)), chidxs)
+    cnames = c(c(sapply(headers[chidxs],function(x) {x[1]})), c(sapply(headers[uhidxs],function(x) {paste(x[2],x[1], sep="_")})))
+    colnames(data) = cnames
+    ymd = which(cnames == "Year" | cnames == "Month" | cnames == "Day")
+    Dates = apply(data[chidxs], 1, function(x){adddate(x,ymd)})
+    data = cbind(data, Dates)
+    # http://stackoverflow.com/questions/21690235/melt-multiple-groups-of-measure-vars
+    # http://www.r-bloggers.com/converting-a-dataset-from-wide-to-long/
+    r = reshape(data, varying=uhidxs, direction="long",idvar="ID",timevar = "Cat", sep="_")
+    return(r)
+}
+
 # datefields
 adddate = function(data, fields) {
     
@@ -92,22 +111,6 @@ adddate = function(data, fields) {
     return(d)
 }
 
-splitdata = function(data, headers, catlen = 4) {
-    # http://www.statmethods.net/management/reshape.html
-    els = sapply(headers, function(x) {length(x)})
-    chidxs = which(els <= 1)
-    uhidxs = setdiff(c(1:length(els)), chidxs)
-    cnames = c(c(sapply(headers[chidxs],function(x) {x[1]})), c(sapply(headers[uhidxs],function(x) {paste(x[2],x[1], sep="_")})))
-    colnames(data) = cnames
-    ymd = which(cnames == "Year" | cnames == "Month" | cnames == "Day")
-    Dates = apply(data[chidxs], 1, function(x){adddate(x,ymd)})
-    data = cbind(data, Dates)
-    # http://stackoverflow.com/questions/21690235/melt-multiple-groups-of-measure-vars
-    # http://www.r-bloggers.com/converting-a-dataset-from-wide-to-long/
-    r = reshape(data, varying=uhidxs, direction="long",idvar="ID",timevar = "Cat", sep="_")
-    return(r)
-}
-
 load_eia_data = function(file) {
     firstline = check4data(file) - 1
     # [1] 4
@@ -127,7 +130,6 @@ load_eia_data = function(file) {
  head(reformeddata)
 # write.csv2(reformeddata, paste(file,".out.csv",sep=""))
 
-today = as.Date(paste(month,day,year, sep="-"), "%Y-%m-%d")
-format(today, format="%B %d %Y")
+
 
 
