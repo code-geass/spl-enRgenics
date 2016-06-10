@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Load Libraries and Data</span>
@@ -11787,7 +11787,7 @@ The following objects are masked from ‘package:base’:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>check4data <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="kp">file</span><span class="p">,</span> reverse <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>
@@ -11852,29 +11852,12 @@ c2num <span class="o">=</span> <span class="kr">function</span><span class="p">(
     <span class="kr">return</span><span class="p">(</span>data<span class="p">)</span>
 <span class="p">}</span>
 
-
-splitdata <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>data<span class="p">,</span> headers<span class="p">,</span> catlen <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1"># http://www.statmethods.net/management/reshape.html</span>
-    els <span class="o">=</span> <span class="kp">sapply</span><span class="p">(</span>headers<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span><span class="kp">length</span><span class="p">(</span>x<span class="p">)})</span>
-    chidxs <span class="o">=</span> <span class="kp">which</span><span class="p">(</span>els <span class="o">&lt;=</span> <span class="m">1</span><span class="p">)</span>
-    uhidxs <span class="o">=</span> <span class="kp">setdiff</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>els<span class="p">)),</span> chidxs<span class="p">)</span>
-    cnames <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="kp">sapply</span><span class="p">(</span>headers<span class="p">[</span>chidxs<span class="p">],</span><span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>x<span class="p">[</span><span class="m">1</span><span class="p">]})),</span> <span class="kt">c</span><span class="p">(</span><span class="kp">sapply</span><span class="p">(</span>headers<span class="p">[</span>uhidxs<span class="p">],</span><span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span><span class="kp">paste</span><span class="p">(</span>x<span class="p">[</span><span class="m">2</span><span class="p">],</span>x<span class="p">[</span><span class="m">1</span><span class="p">],</span> sep<span class="o">=</span><span class="s">&quot;_&quot;</span><span class="p">)})))</span>
-    <span class="kp">colnames</span><span class="p">(</span>data<span class="p">)</span> <span class="o">=</span> cnames
-    ymd <span class="o">=</span> <span class="kp">which</span><span class="p">(</span>cnames <span class="o">==</span> <span class="s">&quot;Year&quot;</span> <span class="o">|</span> cnames <span class="o">==</span> <span class="s">&quot;Month&quot;</span> <span class="o">|</span> cnames <span class="o">==</span> <span class="s">&quot;Day&quot;</span><span class="p">)</span>
-    Dates <span class="o">=</span> <span class="kp">apply</span><span class="p">(</span>data<span class="p">[</span>chidxs<span class="p">],</span> <span class="m">1</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>adddate<span class="p">(</span>x<span class="p">,</span>ymd<span class="p">)})</span>
-    data <span class="o">=</span> <span class="kp">cbind</span><span class="p">(</span>data<span class="p">,</span> Dates<span class="p">)</span>
-    <span class="c1"># http://stackoverflow.com/questions/21690235/melt-multiple-groups-of-measure-vars</span>
-    <span class="c1"># http://www.r-bloggers.com/converting-a-dataset-from-wide-to-long/</span>
-    r <span class="o">=</span> reshape<span class="p">(</span>data<span class="p">,</span> varying<span class="o">=</span>uhidxs<span class="p">,</span> direction<span class="o">=</span><span class="s">&quot;long&quot;</span><span class="p">,</span>idvar<span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="p">,</span>timevar <span class="o">=</span> <span class="s">&quot;Cat&quot;</span><span class="p">,</span> sep<span class="o">=</span><span class="s">&quot;_&quot;</span><span class="p">)</span>
-    <span class="kr">return</span><span class="p">(</span>r<span class="p">)</span>
-<span class="p">}</span>
-
 <span class="c1"># datefields</span>
 adddate <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>data<span class="p">,</span> fields<span class="p">)</span> <span class="p">{</span>
     
     names <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;year&quot;</span><span class="p">,</span> <span class="s">&quot;month&quot;</span><span class="p">,</span> <span class="s">&quot;day&quot;</span><span class="p">)</span>
     <span class="kr">for</span> <span class="p">(</span>i <span class="kr">in</span> <span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span><span class="kp">names</span><span class="p">))</span> <span class="p">{</span>
-        <span class="kr">if</span><span class="p">(</span>i <span class="o">&lt;</span> <span class="kp">length</span><span class="p">(</span>fields<span class="p">))</span> <span class="p">{</span>
+        <span class="kr">if</span><span class="p">(</span>i <span class="o">&lt;=</span> <span class="kp">length</span><span class="p">(</span>fields<span class="p">))</span> <span class="p">{</span>
             <span class="kp">assign</span><span class="p">(</span><span class="kp">names</span><span class="p">[</span>i<span class="p">],</span> data<span class="p">[</span>fields<span class="p">[</span>i<span class="p">]])</span>
         <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
             <span class="kp">assign</span><span class="p">(</span><span class="kp">names</span><span class="p">[</span>i<span class="p">],</span> <span class="kc">NULL</span><span class="p">)</span>
@@ -11884,13 +11867,33 @@ adddate <span class="o">=</span> <span class="kr">function</span><span class="p"
         year <span class="o">=</span> <span class="m">1920</span>
     <span class="p">}</span>
     <span class="kr">if</span><span class="p">(</span><span class="kp">is.null</span><span class="p">(</span>month<span class="p">))</span> <span class="p">{</span>
+        <span class="kp">print</span><span class="p">(</span>month<span class="p">)</span>
         month <span class="o">=</span> <span class="m">1</span>
     <span class="p">}</span>
     <span class="kr">if</span><span class="p">(</span><span class="kp">is.null</span><span class="p">(</span>day<span class="p">))</span> <span class="p">{</span>
         day <span class="o">=</span> <span class="m">1</span>
     <span class="p">}</span>
-    d <span class="o">=</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">paste</span><span class="p">(</span>month<span class="p">,</span>day<span class="p">,</span>year<span class="p">,</span> sep<span class="o">=</span><span class="s">&quot;-&quot;</span><span class="p">),</span> <span class="s">&quot;%m-%d-%Y&quot;</span><span class="p">)</span>
+    <span class="c1">#d = as.Date(paste(month,day,year, sep=&quot;-&quot;), &quot;%m-%d-%Y&quot;)</span>
+    <span class="c1"># https://stat.ethz.ch/R-manual/R-devel/library/base/html/ISOdatetime.html</span>
+    <span class="c1"># http://stackoverflow.com/questions/13456241/convert-unix-epoch-to-date-object-in-r</span>
+    d <span class="o">=</span> <span class="kp">ISOdate</span><span class="p">(</span>year<span class="p">,</span> month<span class="p">,</span> day<span class="p">)</span>
     <span class="kr">return</span><span class="p">(</span>d<span class="p">)</span>
+<span class="p">}</span>
+
+splitdata <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>data<span class="p">,</span> headers<span class="p">,</span> catlen <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1"># http://www.statmethods.net/management/reshape.html</span>
+    els <span class="o">=</span> <span class="kp">sapply</span><span class="p">(</span>headers<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span><span class="kp">length</span><span class="p">(</span>x<span class="p">)})</span>
+    chidxs <span class="o">=</span> <span class="kp">which</span><span class="p">(</span>els <span class="o">&lt;=</span> <span class="m">1</span><span class="p">)</span>
+    uhidxs <span class="o">=</span> <span class="kp">setdiff</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="kp">length</span><span class="p">(</span>els<span class="p">)),</span> chidxs<span class="p">)</span>
+    cnames <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="kp">sapply</span><span class="p">(</span>headers<span class="p">[</span>chidxs<span class="p">],</span><span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>x<span class="p">[</span><span class="m">1</span><span class="p">]})),</span> <span class="kt">c</span><span class="p">(</span><span class="kp">sapply</span><span class="p">(</span>headers<span class="p">[</span>uhidxs<span class="p">],</span><span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span><span class="kp">paste</span><span class="p">(</span>x<span class="p">[</span><span class="m">2</span><span class="p">],</span>x<span class="p">[</span><span class="m">1</span><span class="p">],</span> sep<span class="o">=</span><span class="s">&quot;_&quot;</span><span class="p">)})))</span>
+    <span class="kp">colnames</span><span class="p">(</span>data<span class="p">)</span> <span class="o">=</span> cnames
+    ymd <span class="o">=</span> <span class="kp">which</span><span class="p">(</span>cnames <span class="o">==</span> <span class="s">&quot;Year&quot;</span> <span class="o">|</span> cnames <span class="o">==</span> <span class="s">&quot;Month&quot;</span> <span class="o">|</span> cnames <span class="o">==</span> <span class="s">&quot;Day&quot;</span><span class="p">)</span>
+    Date <span class="o">=</span> <span class="kp">apply</span><span class="p">(</span>data<span class="p">[</span>chidxs<span class="p">],</span> <span class="m">1</span><span class="p">,</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">){</span>adddate<span class="p">(</span>x<span class="p">,</span>ymd<span class="p">)})</span>
+    data <span class="o">=</span> <span class="kp">cbind</span><span class="p">(</span>data<span class="p">,</span> Date<span class="p">)</span>
+    <span class="c1"># http://stackoverflow.com/questions/21690235/melt-multiple-groups-of-measure-vars</span>
+    <span class="c1"># http://www.r-bloggers.com/converting-a-dataset-from-wide-to-long/</span>
+    r <span class="o">=</span> reshape<span class="p">(</span>data<span class="p">,</span> varying<span class="o">=</span>uhidxs<span class="p">,</span> direction<span class="o">=</span><span class="s">&quot;long&quot;</span><span class="p">,</span>idvar<span class="o">=</span><span class="s">&quot;ID&quot;</span><span class="p">,</span>timevar <span class="o">=</span> <span class="s">&quot;Cat&quot;</span><span class="p">,</span> sep<span class="o">=</span><span class="s">&quot;_&quot;</span><span class="p">)</span>
+    <span class="kr">return</span><span class="p">(</span>r<span class="p">)</span>
 <span class="p">}</span>
 
 load_eia_data <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="kp">file</span><span class="p">)</span> <span class="p">{</span>
@@ -11905,69 +11908,26 @@ load_eia_data <span class="o">=</span> <span class="kr">function</span><span cla
     reformeddata <span class="o">=</span> splitdata<span class="p">(</span>alldata<span class="p">,</span> headers<span class="p">)</span>
     <span class="kr">return</span><span class="p">(</span>reformeddata<span class="p">)</span>
 <span class="p">}</span>
-
-<span class="c1"># sample usage</span>
- file <span class="o">=</span> <span class="s">&quot;data/sales_revenue_1.csv&quot;</span>
- reformeddata <span class="o">=</span> load_eia_data<span class="p">(</span><span class="kp">file</span><span class="p">)</span>
- <span class="kp">head</span><span class="p">(</span>reformeddata<span class="p">)</span>
-<span class="c1"># write.csv2(reformeddata, paste(file,&quot;.out.csv&quot;,sep=&quot;&quot;))</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<table>
-<thead><tr><th></th><th scope=col>Year</th><th scope=col>Month</th><th scope=col>State</th><th scope=col>DataStatus</th><th scope=col>Dates</th><th scope=col>Cat</th><th scope=col>Revenue</th><th scope=col>Sales</th><th scope=col>Customers</th><th scope=col>Price</th><th scope=col>ID</th></tr></thead>
-<tbody>
-	<tr><th scope=row>1.RESIDENTIAL</th><td>1990</td><td>1</td><td>AK</td><td>Final</td><td>7305</td><td>RESIDENTIAL</td><td>17477</td><td>181752</td><td>0</td><td>9.62</td><td>1</td></tr>
-	<tr><th scope=row>2.RESIDENTIAL</th><td>1990</td><td>1</td><td>AL</td><td>Final</td><td>7305</td><td>RESIDENTIAL</td><td>123332</td><td>2070093</td><td>0</td><td>5.96</td><td>2</td></tr>
-	<tr><th scope=row>3.RESIDENTIAL</th><td>1990</td><td>1</td><td>AR</td><td>Final</td><td>7305</td><td>RESIDENTIAL</td><td>72506</td><td>1026320</td><td>0</td><td>7.06</td><td>3</td></tr>
-	<tr><th scope=row>4.RESIDENTIAL</th><td>1990</td><td>1</td><td>AZ</td><td>Final</td><td>7305</td><td>RESIDENTIAL</td><td>109332</td><td>1396499</td><td>0</td><td>7.83</td><td>4</td></tr>
-	<tr><th scope=row>5.RESIDENTIAL</th><td>1990</td><td>1</td><td>CA</td><td>Final</td><td>7305</td><td>RESIDENTIAL</td><td>597161</td><td>6168009</td><td>0</td><td>9.68</td><td>5</td></tr>
-	<tr><th scope=row>6.RESIDENTIAL</th><td>1990</td><td>1</td><td>CO</td><td>Final</td><td>7305</td><td>RESIDENTIAL</td><td>71325</td><td>1046805</td><td>0</td><td>6.81</td><td>6</td></tr>
-</tbody>
-</table>
-
-</div>
-
-</div>
-
 </div>
 </div>
 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># sample usage</span>
+<span class="c1"># file = &quot;data/sales_revenue_1.csv&quot;</span>
+<span class="c1"># reformeddata = load_eia_data(file)</span>
+<span class="c1"># head(reformeddata)</span>
+<span class="c1"># write.csv2(reformeddata, paste(file,&quot;.out.csv&quot;,sep=&quot;&quot;))</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-'October 09 2012'
-</div>
-
-</div>
-
 </div>
 </div>
 

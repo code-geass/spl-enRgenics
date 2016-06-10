@@ -70,29 +70,12 @@ c2num = function(data, headers) {
     return(data)
 }
 
-
-splitdata = function(data, headers, catlen = 4) {
-    # http://www.statmethods.net/management/reshape.html
-    els = sapply(headers, function(x) {length(x)})
-    chidxs = which(els <= 1)
-    uhidxs = setdiff(c(1:length(els)), chidxs)
-    cnames = c(c(sapply(headers[chidxs],function(x) {x[1]})), c(sapply(headers[uhidxs],function(x) {paste(x[2],x[1], sep="_")})))
-    colnames(data) = cnames
-    ymd = which(cnames == "Year" | cnames == "Month" | cnames == "Day")
-    Dates = apply(data[chidxs], 1, function(x){adddate(x,ymd)})
-    data = cbind(data, Dates)
-    # http://stackoverflow.com/questions/21690235/melt-multiple-groups-of-measure-vars
-    # http://www.r-bloggers.com/converting-a-dataset-from-wide-to-long/
-    r = reshape(data, varying=uhidxs, direction="long",idvar="ID",timevar = "Cat", sep="_")
-    return(r)
-}
-
 # datefields
 adddate = function(data, fields) {
     
     names = c("year", "month", "day")
     for (i in 1:length(names)) {
-        if(i < length(fields)) {
+        if(i <= length(fields)) {
             assign(names[i], data[fields[i]])
         } else {
             assign(names[i], NULL)
@@ -102,13 +85,33 @@ adddate = function(data, fields) {
         year = 1920
     }
     if(is.null(month)) {
+        print(month)
         month = 1
     }
     if(is.null(day)) {
         day = 1
     }
-    d = as.Date(paste(month,day,year, sep="-"), "%m-%d-%Y")
+    #d = as.Date(paste(month,day,year, sep="-"), "%m-%d-%Y")
+    # https://stat.ethz.ch/R-manual/R-devel/library/base/html/ISOdatetime.html
+    # http://stackoverflow.com/questions/13456241/convert-unix-epoch-to-date-object-in-r
+    d = ISOdate(year, month, day)
     return(d)
+}
+
+splitdata = function(data, headers, catlen = 4) {
+    # http://www.statmethods.net/management/reshape.html
+    els = sapply(headers, function(x) {length(x)})
+    chidxs = which(els <= 1)
+    uhidxs = setdiff(c(1:length(els)), chidxs)
+    cnames = c(c(sapply(headers[chidxs],function(x) {x[1]})), c(sapply(headers[uhidxs],function(x) {paste(x[2],x[1], sep="_")})))
+    colnames(data) = cnames
+    ymd = which(cnames == "Year" | cnames == "Month" | cnames == "Day")
+    Date = apply(data[chidxs], 1, function(x){adddate(x,ymd)})
+    data = cbind(data, Date)
+    # http://stackoverflow.com/questions/21690235/melt-multiple-groups-of-measure-vars
+    # http://www.r-bloggers.com/converting-a-dataset-from-wide-to-long/
+    r = reshape(data, varying=uhidxs, direction="long",idvar="ID",timevar = "Cat", sep="_")
+    return(r)
 }
 
 load_eia_data = function(file) {
@@ -124,12 +127,11 @@ load_eia_data = function(file) {
     return(reformeddata)
 }
 
+
 # sample usage
- file = "data/sales_revenue_1.csv"
- reformeddata = load_eia_data(file)
- head(reformeddata)
+# file = "data/sales_revenue_1.csv"
+# reformeddata = load_eia_data(file)
+# head(reformeddata)
 # write.csv2(reformeddata, paste(file,".out.csv",sep=""))
-
-
 
 

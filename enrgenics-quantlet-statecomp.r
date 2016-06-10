@@ -19,6 +19,21 @@ corr_states
 
 heatmap(corr_states, Rowv=NA, Colv=NA, col = cm.colors(256), margins=c(5,10))
 
+#http://www.r-bloggers.com/ggplot2-cheatsheet-for-scatterplots/
+library(ggplot2)
+# plot options for Jupyter Notebook
+options(repr.plot.width = 12, repr.plot.height = 5)
+
+totals = subset(df, DataStatus=="Final")
+totals_sub = subset(totals, State=="DE" & Cat == "TOTAL" & Year < 2000)
+totals_sub$DateFormat = as.Date(as.POSIXct(totals_sub$Date, origin="1970-01-01"))
+p1 <- ggplot(totals_sub, aes(x = DateFormat, y = Revenue))
+p1 + geom_point(aes(color=factor(Year)))
+ggsave("output/plt1.png", width = 16, height = 9, dpi = 120)
+p1 + geom_point(aes(color=factor(Month)))
+ggsave("output/plt2.png", width = 16, height = 9, dpi = 120)
+head(totals_sub)
+
 
 
 # consider weather data
