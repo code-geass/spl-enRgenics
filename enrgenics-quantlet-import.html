@@ -11832,6 +11832,7 @@ extractheaderinfo <span class="o">=</span> <span class="kr">function</span><span
         t <span class="o">=</span> na.locf<span class="p">(</span>lineVec<span class="p">,</span> na.rm <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
         <span class="kp">t</span><span class="p">[</span><span class="kp">which</span><span class="p">(</span><span class="kp">is.na</span><span class="p">(</span><span class="kp">t</span><span class="p">))]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
         t <span class="o">=</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&quot;\\s&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="kp">t</span><span class="p">)</span>
+        t <span class="o">=</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="kp">t</span><span class="p">)</span>
         <span class="kr">if</span><span class="p">(</span>i <span class="o">==</span> lines<span class="p">)</span> <span class="p">{</span>
             prevline <span class="o">=</span> <span class="kp">t</span>
         <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>

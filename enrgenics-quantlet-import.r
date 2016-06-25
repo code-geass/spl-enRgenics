@@ -50,6 +50,7 @@ extractheaderinfo = function(file, lines) {
         t = na.locf(lineVec, na.rm = FALSE)
         t[which(is.na(t))] = ""
         t = gsub("\\s", "", t)
+        t = gsub('"', '', t)
         if(i == lines) {
             prevline = t
         } else {

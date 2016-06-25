@@ -3,7 +3,7 @@
 source("enrgenics-quantlet-import.r")
 
 
-file = "data/sales_revenue_1.csv"
+file = "data/sales_revenue.csv.0"
 df = load_eia_data(file)
 
 head(df)
