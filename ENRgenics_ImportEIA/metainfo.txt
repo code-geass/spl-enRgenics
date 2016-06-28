@@ -1,21 +1,15 @@
-Name of Quantlet: EnRgenicsPrediction
+Name of Quantlet: ENRgenics_ImportEIA
 
 Published in: [Github]
 
-Description: Plots and regresses energy usage data from the EIA over time and by location.
+Description: Loads and Cleans data from EIA into R
 
-Keywords: time-series, visualization, plot, etc, etc
+Keywords: data, cleaning, loading, EIA, energy, excel, csv
 
-See also: [for listing related, similar Quantlets or Github code from your point of view - delete if not used]
+See also: ENRgenics_AddOther
 
 Author: David Pollack, Reethesh Jayakumar, Brian Rooney
 
-Submitted:  [omittable]
+Submitted:  07.2016
 
-Datafile: data.csv
-
-Input: (optional - delete if not used)
-
-Output:  (optional - delete if not used)
-
-Example: for your plots, graphs, results etc. - delete if not used
+Datafile: sales_revenue.csv.0
