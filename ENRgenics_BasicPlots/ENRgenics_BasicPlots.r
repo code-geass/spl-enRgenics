@@ -15,17 +15,17 @@ gpclibPermit()
 
 # load data from Quantlet
 ENRGENICS_ADDOTHER_PATH = "../ENRgenics_AddOther/ENRgenics_AddOther.r"
-EIA_DATA_PATH = "../data/sales_revenue.csv.0"
-
-# use for AddOther
-ENRGENICS_IMPORTEIA_PATH = "../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r"
-ENRGENICS_ADDOTHERVARS_PATH = "../ENRgenics_AddOther/ENRgenics_AddOtherVars.r"
-ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH = "../data/climdiv-tmpcst-v1.0.0-20160605"
-PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_ADDOTHERVARS_PATH, ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH)
-
 source(ENRGENICS_ADDOTHER_PATH)
+# paths for ImportEIA and climate Data
+ENRGENICS_IMPORTEIA_PATH = "../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r"
+ENRGENICS_CLIMATE_DATA_PATH = "../data/climdiv-tmpcst-v1.0.0-20160605"
+PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_CLIMATE_DATA_PATH)
 
 
+
+
+# location of EIA data file
+EIA_DATA_PATH = "../data/sales_revenue.csv.0"
 
 file = EIA_DATA_PATH
 df = load_eia_data_with_all_others(file)
@@ -145,7 +145,5 @@ for (i in 1:dim(normalizers)[2]) {
 
 # https://www.census.gov/popest/data/datasets.html
 # https://docs.google.com/spreadsheets/d/1JsV5bNnFoE-4xapsnrpqRP-5wgTkpDjgC0SXKW8zgPI/edit#gid=0
-
-
 
 

@@ -3,17 +3,15 @@
 library(MASS)
 library(dplyr)
 
-# Load Variables
-source(PATH_VARS[2])
-
 # we've used relative paths.  If you need absolute paths, change these variables or set your
 # working directory to the directory of this file.
-ENRGENICS_IMPORTEIA_PATH = "../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r"
-ENRGENICS_ADDOTHERVARS_PATH = "ENRgenics_AddOtherVars.r"
-ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH = "../data/climdiv-tmpcst-v1.0.0-20160605"
+ENRGENICS_IMPORTEIA_PATH = "/home/david/Programming/github/dhpollack/spl-enRgenics/ENRgenics_ImportEIA/ENRgenics_ImportEIA.r"
+ENRGENICS_CLIMATE_DATA_PATH = "../data/climdiv-tmpcst-v1.0.0-20160605"
+PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_CLIMATE_DATA_PATH)
 
-PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_ADDOTHERVARS_PATH, ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH)
-
+# Legend Variable
+# see # ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/state-readme.txt
+statecodelegend = c("001"="Alabama","030"="New York","002"="Arizona","031"="North Carolina","003"="Arkansas","032"="North Dakota","004"="California","033"="Ohio","005"="Colorado","034"="Oklahoma","006"="Connecticut","035"="Oregon","007"="Delaware","036"="Pennsylvania","008"="Florida","037"="Rhode Island","009"="Georgia","038"="South Carolina","010"="Idaho","039"="South Dakota","011"="Illinois","040"="Tennessee","012"="Indiana","041"="Texas","013"="Iowa","042"="Utah","014"="Kansas","043"="Vermont","015"="Kentucky","044"="Virginia","016"="Louisiana","045"="Washington","017"="Maine","046"="West Virginia","018"="Maryland","047"="Wisconsin","019"="Massachusetts","048"="Wyoming","020"="Michigan","050"="Alaska","021"="Minnesota","022"="Mississippi","023"="Missouri","024"="Montana","025"="Nebraska","026"="Nevada","027"="New Hampshire","028"="New Jersey","029"="New Mexico","049"="Hawaii")
 
 # Helper Functions
 splitel <- function(x) {
@@ -32,7 +30,7 @@ stfind <- function(x) {
 }
 
 
-load_weather_data <- function(file = PATH_VARS[3]) {
+load_weather_data <- function(file = PATH_VARS[2]) {
     dat = read.table(file, colClasses = "character")
 
     c1sp = lapply(dat[,1], splitel)
@@ -83,13 +81,24 @@ load_eia_data_with_all_others <- function(file) {
 }
 
 
-# sample usage
-#EIA_DATA_PATH = "/home/david/Programming/github/dhpollack/spl-enRgenics/data/sales_revenue.csv.0"
-#alldata = load_eia_data_with_all_others(EIA_DATA_PATH)
-#head(alldata)
+# Sample Usage: Below is the sample usage of how to source this file into 
+# other quantlets.  Note, I have used relative paths, but you may need to use 
+# absolute paths OR set the correct working directory.  These variables 
+# assume the quantlet is being sourced from a parallel folder
 
+# load data from Quantlet
+#ENRGENICS_ADDOTHER_PATH = "../ENRgenics_AddOther/ENRgenics_AddOther.r"
+#source(ENRGENICS_ADDOTHER_PATH)
 
-
-
+# start here to directly load data from this file for testing
+# paths for ImportEIA and climate Data
+#ENRGENICS_IMPORTEIA_PATH = "../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r"
+#ENRGENICS_CLIMATE_DATA_PATH = "../data/climdiv-tmpcst-v1.0.0-20160605"
+#PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_CLIMATE_DATA_PATH)
+# location of EIA data file
+#EIA_DATA_PATH = "../data/sales_revenue.csv.0"
+#file = EIA_DATA_PATH
+#df = load_eia_data_with_all_others(file)
+#head(df)
 
 

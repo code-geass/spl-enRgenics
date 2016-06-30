@@ -11748,24 +11748,22 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Load Libraries</span>
 <span class="kn">library</span><span class="p">(</span>MASS<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
 
-<span class="c1"># Load Variables</span>
-<span class="kn">source</span><span class="p">(</span>PATH_VARS<span class="p">[</span><span class="m">2</span><span class="p">])</span>
-
 <span class="c1"># we&#39;ve used relative paths.  If you need absolute paths, change these variables or set your</span>
 <span class="c1"># working directory to the directory of this file.</span>
-ENRGENICS_IMPORTEIA_PATH <span class="o">=</span> <span class="s">&quot;../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r&quot;</span>
-ENRGENICS_ADDOTHERVARS_PATH <span class="o">=</span> <span class="s">&quot;ENRgenics_AddOtherVars.r&quot;</span>
-ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH <span class="o">=</span> <span class="s">&quot;../data/climdiv-tmpcst-v1.0.0-20160605&quot;</span>
+ENRGENICS_IMPORTEIA_PATH <span class="o">=</span> <span class="s">&quot;/home/david/Programming/github/dhpollack/spl-enRgenics/ENRgenics_ImportEIA/ENRgenics_ImportEIA.r&quot;</span>
+ENRGENICS_CLIMATE_DATA_PATH <span class="o">=</span> <span class="s">&quot;../data/climdiv-tmpcst-v1.0.0-20160605&quot;</span>
+PATH_VARS <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>ENRGENICS_IMPORTEIA_PATH<span class="p">,</span> ENRGENICS_CLIMATE_DATA_PATH<span class="p">)</span>
 
-PATH_VARS <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>ENRGENICS_IMPORTEIA_PATH<span class="p">,</span> ENRGENICS_ADDOTHERVARS_PATH<span class="p">,</span> ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH<span class="p">)</span>
-
+<span class="c1"># Legend Variable</span>
+<span class="c1"># see # ftp://ftp.ncdc.noaa.gov/pub/data/cirs/climdiv/state-readme.txt</span>
+statecodelegend <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;001&quot;</span><span class="o">=</span><span class="s">&quot;Alabama&quot;</span><span class="p">,</span><span class="s">&quot;030&quot;</span><span class="o">=</span><span class="s">&quot;New York&quot;</span><span class="p">,</span><span class="s">&quot;002&quot;</span><span class="o">=</span><span class="s">&quot;Arizona&quot;</span><span class="p">,</span><span class="s">&quot;031&quot;</span><span class="o">=</span><span class="s">&quot;North Carolina&quot;</span><span class="p">,</span><span class="s">&quot;003&quot;</span><span class="o">=</span><span class="s">&quot;Arkansas&quot;</span><span class="p">,</span><span class="s">&quot;032&quot;</span><span class="o">=</span><span class="s">&quot;North Dakota&quot;</span><span class="p">,</span><span class="s">&quot;004&quot;</span><span class="o">=</span><span class="s">&quot;California&quot;</span><span class="p">,</span><span class="s">&quot;033&quot;</span><span class="o">=</span><span class="s">&quot;Ohio&quot;</span><span class="p">,</span><span class="s">&quot;005&quot;</span><span class="o">=</span><span class="s">&quot;Colorado&quot;</span><span class="p">,</span><span class="s">&quot;034&quot;</span><span class="o">=</span><span class="s">&quot;Oklahoma&quot;</span><span class="p">,</span><span class="s">&quot;006&quot;</span><span class="o">=</span><span class="s">&quot;Connecticut&quot;</span><span class="p">,</span><span class="s">&quot;035&quot;</span><span class="o">=</span><span class="s">&quot;Oregon&quot;</span><span class="p">,</span><span class="s">&quot;007&quot;</span><span class="o">=</span><span class="s">&quot;Delaware&quot;</span><span class="p">,</span><span class="s">&quot;036&quot;</span><span class="o">=</span><span class="s">&quot;Pennsylvania&quot;</span><span class="p">,</span><span class="s">&quot;008&quot;</span><span class="o">=</span><span class="s">&quot;Florida&quot;</span><span class="p">,</span><span class="s">&quot;037&quot;</span><span class="o">=</span><span class="s">&quot;Rhode Island&quot;</span><span class="p">,</span><span class="s">&quot;009&quot;</span><span class="o">=</span><span class="s">&quot;Georgia&quot;</span><span class="p">,</span><span class="s">&quot;038&quot;</span><span class="o">=</span><span class="s">&quot;South Carolina&quot;</span><span class="p">,</span><span class="s">&quot;010&quot;</span><span class="o">=</span><span class="s">&quot;Idaho&quot;</span><span class="p">,</span><span class="s">&quot;039&quot;</span><span class="o">=</span><span class="s">&quot;South Dakota&quot;</span><span class="p">,</span><span class="s">&quot;011&quot;</span><span class="o">=</span><span class="s">&quot;Illinois&quot;</span><span class="p">,</span><span class="s">&quot;040&quot;</span><span class="o">=</span><span class="s">&quot;Tennessee&quot;</span><span class="p">,</span><span class="s">&quot;012&quot;</span><span class="o">=</span><span class="s">&quot;Indiana&quot;</span><span class="p">,</span><span class="s">&quot;041&quot;</span><span class="o">=</span><span class="s">&quot;Texas&quot;</span><span class="p">,</span><span class="s">&quot;013&quot;</span><span class="o">=</span><span class="s">&quot;Iowa&quot;</span><span class="p">,</span><span class="s">&quot;042&quot;</span><span class="o">=</span><span class="s">&quot;Utah&quot;</span><span class="p">,</span><span class="s">&quot;014&quot;</span><span class="o">=</span><span class="s">&quot;Kansas&quot;</span><span class="p">,</span><span class="s">&quot;043&quot;</span><span class="o">=</span><span class="s">&quot;Vermont&quot;</span><span class="p">,</span><span class="s">&quot;015&quot;</span><span class="o">=</span><span class="s">&quot;Kentucky&quot;</span><span class="p">,</span><span class="s">&quot;044&quot;</span><span class="o">=</span><span class="s">&quot;Virginia&quot;</span><span class="p">,</span><span class="s">&quot;016&quot;</span><span class="o">=</span><span class="s">&quot;Louisiana&quot;</span><span class="p">,</span><span class="s">&quot;045&quot;</span><span class="o">=</span><span class="s">&quot;Washington&quot;</span><span class="p">,</span><span class="s">&quot;017&quot;</span><span class="o">=</span><span class="s">&quot;Maine&quot;</span><span class="p">,</span><span class="s">&quot;046&quot;</span><span class="o">=</span><span class="s">&quot;West Virginia&quot;</span><span class="p">,</span><span class="s">&quot;018&quot;</span><span class="o">=</span><span class="s">&quot;Maryland&quot;</span><span class="p">,</span><span class="s">&quot;047&quot;</span><span class="o">=</span><span class="s">&quot;Wisconsin&quot;</span><span class="p">,</span><span class="s">&quot;019&quot;</span><span class="o">=</span><span class="s">&quot;Massachusetts&quot;</span><span class="p">,</span><span class="s">&quot;048&quot;</span><span class="o">=</span><span class="s">&quot;Wyoming&quot;</span><span class="p">,</span><span class="s">&quot;020&quot;</span><span class="o">=</span><span class="s">&quot;Michigan&quot;</span><span class="p">,</span><span class="s">&quot;050&quot;</span><span class="o">=</span><span class="s">&quot;Alaska&quot;</span><span class="p">,</span><span class="s">&quot;021&quot;</span><span class="o">=</span><span class="s">&quot;Minnesota&quot;</span><span class="p">,</span><span class="s">&quot;022&quot;</span><span class="o">=</span><span class="s">&quot;Mississippi&quot;</span><span class="p">,</span><span class="s">&quot;023&quot;</span><span class="o">=</span><span class="s">&quot;Missouri&quot;</span><span class="p">,</span><span class="s">&quot;024&quot;</span><span class="o">=</span><span class="s">&quot;Montana&quot;</span><span class="p">,</span><span class="s">&quot;025&quot;</span><span class="o">=</span><span class="s">&quot;Nebraska&quot;</span><span class="p">,</span><span class="s">&quot;026&quot;</span><span class="o">=</span><span class="s">&quot;Nevada&quot;</span><span class="p">,</span><span class="s">&quot;027&quot;</span><span class="o">=</span><span class="s">&quot;New Hampshire&quot;</span><span class="p">,</span><span class="s">&quot;028&quot;</span><span class="o">=</span><span class="s">&quot;New Jersey&quot;</span><span class="p">,</span><span class="s">&quot;029&quot;</span><span class="o">=</span><span class="s">&quot;New Mexico&quot;</span><span class="p">,</span><span class="s">&quot;049&quot;</span><span class="o">=</span><span class="s">&quot;Hawaii&quot;</span><span class="p">)</span>
 
 <span class="c1"># Helper Functions</span>
 splitel <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>
@@ -11784,7 +11782,7 @@ stfind <span class="o">&lt;-</span> <span class="kr">function</span><span class=
 <span class="p">}</span>
 
 
-load_weather_data <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>file <span class="o">=</span> PATH_VARS<span class="p">[</span><span class="m">3</span><span class="p">])</span> <span class="p">{</span>
+load_weather_data <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>file <span class="o">=</span> PATH_VARS<span class="p">[</span><span class="m">2</span><span class="p">])</span> <span class="p">{</span>
     dat <span class="o">=</span> read.table<span class="p">(</span><span class="kp">file</span><span class="p">,</span> colClasses <span class="o">=</span> <span class="s">&quot;character&quot;</span><span class="p">)</span>
 
     c1sp <span class="o">=</span> <span class="kp">lapply</span><span class="p">(</span>dat<span class="p">[,</span><span class="m">1</span><span class="p">],</span> splitel<span class="p">)</span>
@@ -11842,13 +11840,28 @@ load_eia_data_with_all_others <span class="o">&lt;-</span> <span class="kr">func
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span><span class="c1"># sample usage</span>
-<span class="c1">#EIA_DATA_PATH = &quot;/home/david/Programming/github/dhpollack/spl-enRgenics/data/sales_revenue.csv.0&quot;</span>
-<span class="c1">#alldata = load_eia_data_with_all_others(EIA_DATA_PATH)</span>
-<span class="c1">#head(alldata)</span>
+<div class=" highlight hl-r"><pre><span></span><span class="c1"># Sample Usage: Below is the sample usage of how to source this file into </span>
+<span class="c1"># other quantlets.  Note, I have used relative paths, but you may need to use </span>
+<span class="c1"># absolute paths OR set the correct working directory.  These variables </span>
+<span class="c1"># assume the quantlet is being sourced from a parallel folder</span>
+
+<span class="c1"># load data from Quantlet</span>
+<span class="c1">#ENRGENICS_ADDOTHER_PATH = &quot;../ENRgenics_AddOther/ENRgenics_AddOther.r&quot;</span>
+<span class="c1">#source(ENRGENICS_ADDOTHER_PATH)</span>
+
+<span class="c1"># start here to directly load data from this file for testing</span>
+<span class="c1"># paths for ImportEIA and climate Data</span>
+<span class="c1">#ENRGENICS_IMPORTEIA_PATH = &quot;../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r&quot;</span>
+<span class="c1">#ENRGENICS_CLIMATE_DATA_PATH = &quot;../data/climdiv-tmpcst-v1.0.0-20160605&quot;</span>
+<span class="c1">#PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_CLIMATE_DATA_PATH)</span>
+<span class="c1"># location of EIA data file</span>
+<span class="c1">#EIA_DATA_PATH = &quot;../data/sales_revenue.csv.0&quot;</span>
+<span class="c1">#file = EIA_DATA_PATH</span>
+<span class="c1">#df = load_eia_data_with_all_others(file)</span>
+<span class="c1">#head(df)</span>
 </pre></div>
 
 </div>
@@ -11867,7 +11880,7 @@ Joining by: c(&#34;Year&#34;, &#34;Month&#34;, &#34;State&#34;)
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -11882,70 +11895,6 @@ Joining by: c(&#34;Year&#34;, &#34;Month&#34;, &#34;State&#34;)
 </tbody>
 </table>
 
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[72]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-'character'
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-'character'
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[89]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-r"><pre><span></span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[89]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-'.'
 </div>
 
 </div>
