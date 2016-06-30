@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Load Libraries and Data</span>
@@ -11787,10 +11787,11 @@ The following objects are masked from ‘package:base’:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span>check4data <span class="o">=</span> <span class="kr">function</span><span class="p">(</span><span class="kp">file</span><span class="p">,</span> reverse <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kp">print</span><span class="p">(</span><span class="kp">file</span><span class="p">)</span>
     numlines <span class="o">=</span> <span class="m">100</span>
     s <span class="o">=</span> <span class="kp">readLines</span><span class="p">(</span><span class="kp">file</span><span class="p">)</span>
     <span class="kr">if</span><span class="p">(</span>reverse <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>
@@ -11937,6 +11938,14 @@ load_eia_data <span class="o">=</span> <span class="kr">function</span><span cla
 <div class="output">
 
 
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1] &#34;../data/sales_revenue.csv.0&#34;
+[1] &#34;../data/sales_revenue.csv.0&#34;
+</pre>
+</div>
+</div>
+
 <div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
@@ -11951,38 +11960,6 @@ load_eia_data <span class="o">=</span> <span class="kr">function</span><span cla
 	<tr><th scope=row>6.RESIDENTIAL</th><td>1990</td><td>1</td><td>CO</td><td>Final</td><td>631195200</td><td>RESIDENTIAL</td><td>71325</td><td>1046805</td><td>0</td><td>6.81</td><td>6</td></tr>
 </tbody>
 </table>
-
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt output_prompt">Out[5]:</div>
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<dl class=dl-horizontal>
-	<dt>Year</dt>
-		<dd>'integer'</dd>
-	<dt>Month</dt>
-		<dd>'integer'</dd>
-	<dt>State</dt>
-		<dd>'character'</dd>
-	<dt>DataStatus</dt>
-		<dd>'character'</dd>
-	<dt>Date</dt>
-		<dd>'numeric'</dd>
-	<dt>Cat</dt>
-		<dd>'character'</dd>
-	<dt>Revenue</dt>
-		<dd>'numeric'</dd>
-	<dt>Sales</dt>
-		<dd>'numeric'</dd>
-	<dt>Customers</dt>
-		<dd>'numeric'</dd>
-	<dt>Price</dt>
-		<dd>'numeric'</dd>
-	<dt>ID</dt>
-		<dd>'integer'</dd>
-</dl>
 
 </div>
 

@@ -4,7 +4,16 @@ library(MASS)
 library(dplyr)
 
 # Load Variables
-source("ENRgenics_AddOtherVars.r")
+source(PATH_VARS[2])
+
+# we've used relative paths.  If you need absolute paths, change these variables or set your
+# working directory to the directory of this file.
+ENRGENICS_IMPORTEIA_PATH = "../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r"
+ENRGENICS_ADDOTHERVARS_PATH = "ENRgenics_AddOtherVars.r"
+ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH = "../data/climdiv-tmpcst-v1.0.0-20160605"
+
+PATH_VARS = c(ENRGENICS_IMPORTEIA_PATH, ENRGENICS_ADDOTHERVARS_PATH, ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH)
+
 
 # Helper Functions
 splitel <- function(x) {
@@ -23,7 +32,7 @@ stfind <- function(x) {
 }
 
 
-load_weather_data <- function(file = "../data/climdiv-tmpcst-v1.0.0-20160605") {
+load_weather_data <- function(file = PATH_VARS[3]) {
     dat = read.table(file, colClasses = "character")
 
     c1sp = lapply(dat[,1], splitel)
@@ -66,7 +75,7 @@ add_data <- function(df1, df2) {
 }
 
 load_eia_data_with_all_others <- function(file) {
-    source("../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r")
+    source(PATH_VARS[1])
     eiadata = load_eia_data(file)
     otherdata = add_data(load_weather_data(), load_state_data())
     alldata = add_data(eiadata, otherdata[,c("Month", "Year", "State", "statename", "temp", "Population", "Income", "Illiteracy", "Life Exp", "Murder", "HS Grad", "Frost", "Area")])
@@ -74,10 +83,13 @@ load_eia_data_with_all_others <- function(file) {
 }
 
 
-
 # sample usage
-#file = "../data/sales_revenue.csv.0"
-#alldata = load_eia_data_with_all_others(file)
+#EIA_DATA_PATH = "/home/david/Programming/github/dhpollack/spl-enRgenics/data/sales_revenue.csv.0"
+#alldata = load_eia_data_with_all_others(EIA_DATA_PATH)
 #head(alldata)
+
+
+
+
 
 

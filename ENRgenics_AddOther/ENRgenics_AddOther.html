@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[87]:</div>
+<div class="prompt input_prompt">In&nbsp;[76]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># Load Libraries</span>
@@ -11756,7 +11756,16 @@ div#notebook {
 <span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
 
 <span class="c1"># Load Variables</span>
-<span class="kn">source</span><span class="p">(</span><span class="s">&quot;ENRgenics_AddOtherVars.r&quot;</span><span class="p">)</span>
+<span class="kn">source</span><span class="p">(</span>PATH_VARS<span class="p">[</span><span class="m">2</span><span class="p">])</span>
+
+<span class="c1"># we&#39;ve used relative paths.  If you need absolute paths, change these variables or set your</span>
+<span class="c1"># working directory to the directory of this file.</span>
+ENRGENICS_IMPORTEIA_PATH <span class="o">=</span> <span class="s">&quot;../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r&quot;</span>
+ENRGENICS_ADDOTHERVARS_PATH <span class="o">=</span> <span class="s">&quot;ENRgenics_AddOtherVars.r&quot;</span>
+ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH <span class="o">=</span> <span class="s">&quot;../data/climdiv-tmpcst-v1.0.0-20160605&quot;</span>
+
+PATH_VARS <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>ENRGENICS_IMPORTEIA_PATH<span class="p">,</span> ENRGENICS_ADDOTHERVARS_PATH<span class="p">,</span> ENRGENICS_ADDOTHER_DEFAULTTEMP_PATH<span class="p">)</span>
+
 
 <span class="c1"># Helper Functions</span>
 splitel <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> <span class="p">{</span>
@@ -11775,7 +11784,7 @@ stfind <span class="o">&lt;-</span> <span class="kr">function</span><span class=
 <span class="p">}</span>
 
 
-load_weather_data <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>file <span class="o">=</span> <span class="s">&quot;../data/climdiv-tmpcst-v1.0.0-20160605&quot;</span><span class="p">)</span> <span class="p">{</span>
+load_weather_data <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span>file <span class="o">=</span> PATH_VARS<span class="p">[</span><span class="m">3</span><span class="p">])</span> <span class="p">{</span>
     dat <span class="o">=</span> read.table<span class="p">(</span><span class="kp">file</span><span class="p">,</span> colClasses <span class="o">=</span> <span class="s">&quot;character&quot;</span><span class="p">)</span>
 
     c1sp <span class="o">=</span> <span class="kp">lapply</span><span class="p">(</span>dat<span class="p">[,</span><span class="m">1</span><span class="p">],</span> splitel<span class="p">)</span>
@@ -11818,7 +11827,7 @@ add_data <span class="o">&lt;-</span> <span class="kr">function</span><span clas
 <span class="p">}</span>
 
 load_eia_data_with_all_others <span class="o">&lt;-</span> <span class="kr">function</span><span class="p">(</span><span class="kp">file</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kn">source</span><span class="p">(</span><span class="s">&quot;../ENRgenics_ImportEIA/ENRgenics_ImportEIA.r&quot;</span><span class="p">)</span>
+    <span class="kn">source</span><span class="p">(</span>PATH_VARS<span class="p">[</span><span class="m">1</span><span class="p">])</span>
     eiadata <span class="o">=</span> load_eia_data<span class="p">(</span><span class="kp">file</span><span class="p">)</span>
     otherdata <span class="o">=</span> add_data<span class="p">(</span>load_weather_data<span class="p">(),</span> load_state_data<span class="p">())</span>
     alldata <span class="o">=</span> add_data<span class="p">(</span>eiadata<span class="p">,</span> otherdata<span class="p">[,</span><span class="kt">c</span><span class="p">(</span><span class="s">&quot;Month&quot;</span><span class="p">,</span> <span class="s">&quot;Year&quot;</span><span class="p">,</span> <span class="s">&quot;State&quot;</span><span class="p">,</span> <span class="s">&quot;statename&quot;</span><span class="p">,</span> <span class="s">&quot;temp&quot;</span><span class="p">,</span> <span class="s">&quot;Population&quot;</span><span class="p">,</span> <span class="s">&quot;Income&quot;</span><span class="p">,</span> <span class="s">&quot;Illiteracy&quot;</span><span class="p">,</span> <span class="s">&quot;Life Exp&quot;</span><span class="p">,</span> <span class="s">&quot;Murder&quot;</span><span class="p">,</span> <span class="s">&quot;HS Grad&quot;</span><span class="p">,</span> <span class="s">&quot;Frost&quot;</span><span class="p">,</span> <span class="s">&quot;Area&quot;</span><span class="p">)])</span>
@@ -11833,12 +11842,12 @@ load_eia_data_with_all_others <span class="o">&lt;-</span> <span class="kr">func
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[88]:</div>
+<div class="prompt input_prompt">In&nbsp;[77]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-r"><pre><span></span><span class="c1"># sample usage</span>
-<span class="c1">#file = &quot;../data/sales_revenue.csv.0&quot;</span>
-<span class="c1">#alldata = load_eia_data_with_all_others(file)</span>
+<span class="c1">#EIA_DATA_PATH = &quot;/home/david/Programming/github/dhpollack/spl-enRgenics/data/sales_revenue.csv.0&quot;</span>
+<span class="c1">#alldata = load_eia_data_with_all_others(EIA_DATA_PATH)</span>
 <span class="c1">#head(alldata)</span>
 </pre></div>
 
@@ -11858,7 +11867,7 @@ Joining by: c(&#34;Year&#34;, &#34;Month&#34;, &#34;State&#34;)
 </div>
 </div>
 
-<div class="output_area"><div class="prompt output_prompt">Out[88]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[77]:</div>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 <table>
@@ -11873,6 +11882,70 @@ Joining by: c(&#34;Year&#34;, &#34;Month&#34;, &#34;State&#34;)
 </tbody>
 </table>
 
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[72]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+'character'
+</div>
+
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[72]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+'character'
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[89]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-r"><pre><span></span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[89]:</div>
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+'.'
 </div>
 
 </div>
