@@ -4,7 +4,7 @@ Published in: [Github]
 
 Description: Inputs the reformed data in a function to give forecasts and also compares forecast with actual data 
 
-Keywords: data, forecast,compare
+Keywords: data, forecast, compare, histogram, Arima
 
 Author: David Pollack, Reethesh Jayakumar, Brian Rooney
 
