@@ -2,7 +2,7 @@ Name of Quantlet: ENRgenics_ArimaForecast
 
 Published in: [Github]
 
-Description: Inputs the reformed data in a function to give forecasts and also compares forecast with actual data 
+Description: To find a suitable forecasting period by choosing the smallest value of RMSE(Root Mean Squared Error) 
 
 Keywords: data, forecast, compare, histogram, Arima
 
